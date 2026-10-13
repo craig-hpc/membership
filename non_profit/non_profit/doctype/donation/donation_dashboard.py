@@ -3,14 +3,7 @@ from frappe import _
 
 def get_data():
 	return {
-		'fieldname': 'donation',
-		'non_standard_fieldnames': {
-			'Payment Entry': 'reference_name'
-		},
-		'transactions': [
-			{
-				'label': _('Payment'),
-				'items': ['Payment Entry']
-			}
-		]
+		"fieldname": "donation",
+		"internal_links": {"Journal Entry": "journal_entry"},
+		"transactions": [{"label": _("Accounting"), "items": ["Journal Entry"]}],
 	}

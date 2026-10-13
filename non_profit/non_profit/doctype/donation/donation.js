@@ -1,26 +1,67 @@
 // Copyright (c) 2021, Frappe Technologies Pvt. Ltd. and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Donation', {
-	refresh: function(frm) {
+frappe.ui.form.on("Donation", {
+	refresh(frm) {
 		if (frm.doc.docstatus === 1 && !frm.doc.paid) {
-			frm.add_custom_button(__('Create Payment Entry'), function() {
-				frm.events.make_payment_entry(frm);
+			frm.add_custom_button(__("Mark as Paid"), () => frm.events.mark_paid(frm));
+		}
+
+		if (frm.doc.docstatus === 1 && frm.doc.email) {
+			frm.add_custom_button(__("Email Receipt"), () => {
+				frm.call({ doc: frm.doc, method: "send_receipt", freeze: true });
 			});
+		}
+
+		if (frm.doc.docstatus === 1) {
+			frm.dashboard.add_indicator(
+				frm.doc.is_tax_deductible
+					? __("Tax deductible: {0}", [
+							format_currency(frm.doc.deductible_amount, frm.doc.currency),
+						])
+					: __("Not tax deductible"),
+				frm.doc.is_tax_deductible ? "green" : "gray"
+			);
 		}
 	},
 
-	make_payment_entry: function(frm) {
-		return frappe.call({
-			method: 'non_profit.non_profit.custom_doctype.payment_entry.get_donation_payment_entry',
-			args: {
-				'dt': frm.doc.doctype,
-				'dn': frm.doc.name
+	gift_type(frm) {
+		if (frm.doc.gift_type === "Gift") {
+			frm.set_value("benefit_value", 0);
+		}
+	},
+
+	mark_paid(frm) {
+		const dialog = new frappe.ui.Dialog({
+			title: __("Record Payment"),
+			fields: [
+				{
+					fieldname: "payment_reference",
+					fieldtype: "Data",
+					label: __("Payment Reference"),
+					default: frm.doc.payment_id,
+				},
+				{
+					fieldname: "posting_date",
+					fieldtype: "Date",
+					label: __("Date Received"),
+					default: frappe.datetime.get_today(),
+					reqd: 1,
+				},
+			],
+			primary_action_label: __("Mark as Paid"),
+			primary_action(values) {
+				frm.call({
+					doc: frm.doc,
+					method: "mark_paid",
+					args: values,
+					freeze: true,
+				}).then(() => {
+					dialog.hide();
+					frm.reload_doc();
+				});
 			},
-			callback: function(r) {
-				var doc = frappe.model.sync(r.message);
-				frappe.set_route('Form', doc[0].doctype, doc[0].name);
-			}
 		});
+		dialog.show();
 	},
 });

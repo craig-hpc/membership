@@ -1,0 +1,19 @@
+{
+ "app": "non_profit",
+ "creation": "2026-10-13 12:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon_type": "App",
+ "idx": 30,
+ "label": "Non Profit",
+ "link": "/desk/non-profit",
+ "link_type": "External",
+ "logo_url": "/assets/non_profit/images/non-profit-logo.svg",
+ "modified": "2026-10-13 12:00:00.000000",
+ "modified_by": "Administrator",
+ "name": "Non Profit",
+ "owner": "Administrator",
+ "roles": [],
+ "standard": 1
+}

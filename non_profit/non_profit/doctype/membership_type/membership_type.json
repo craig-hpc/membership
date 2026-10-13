@@ -8,8 +8,8 @@
  "field_order": [
   "membership_type",
   "amount",
-  "razorpay_plan_id",
-  "linked_item"
+  "linked_item",
+  "description"
  ],
  "fields": [
   {
@@ -22,29 +22,29 @@
    "unique": 1
   },
   {
+   "description": "Fee for one membership period. If the tax template in Non Profit Settings marks GST as included in the rate, enter the GST-inclusive fee.",
    "fieldname": "amount",
-   "fieldtype": "Float",
+   "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Amount",
    "reqd": 1
   },
   {
-   "fieldname": "razorpay_plan_id",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Razorpay Plan ID",
-   "unique": 1
-  },
-  {
+   "description": "Non-stock service item used when invoicing this membership, for example 'Annual Membership'.",
    "fieldname": "linked_item",
    "fieldtype": "Link",
    "label": "Linked Item",
    "options": "Item",
    "unique": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
   }
  ],
  "links": [],
- "modified": "2020-08-05 15:21:43.595745",
+ "modified": "2026-10-13 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Non Profit",
  "name": "Membership Type",
@@ -64,7 +64,6 @@
   }
  ],
  "quick_entry": 1,
- "restrict_to_domain": "Non Profit",
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

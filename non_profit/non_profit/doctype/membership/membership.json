@@ -23,9 +23,6 @@
   "amount",
   "column_break_16",
   "invoice",
-  "razorpay_details_section",
-  "subscription_id",
-  "column_break_19",
   "payment_id"
  ],
  "fields": [
@@ -48,6 +45,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "description": "Set automatically from the dates and payment, unless Cancelled.",
    "fieldname": "membership_status",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -61,6 +59,7 @@
    "label": "Validity"
   },
   {
+   "default": "Today",
    "fieldname": "from_date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -68,11 +67,11 @@
    "reqd": 1
   },
   {
+   "description": "Worked out from the billing cycle in Non Profit Settings if left blank.",
    "fieldname": "to_date",
    "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "To",
-   "reqd": 1
+   "label": "To"
   },
   {
    "fieldname": "column_break_8",
@@ -95,6 +94,8 @@
    "label": "Paid"
   },
   {
+   "fetch_from": "company.default_currency",
+   "fetch_if_empty": 1,
    "fieldname": "currency",
    "fieldtype": "Link",
    "label": "Currency",
@@ -102,23 +103,15 @@
   },
   {
    "fieldname": "amount",
-   "fieldtype": "Float",
-   "label": "Amount"
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "options": "currency"
   },
   {
-   "fieldname": "razorpay_details_section",
-   "fieldtype": "Section Break",
-   "label": "Razorpay Details"
-  },
-  {
-   "fieldname": "subscription_id",
-   "fieldtype": "Data",
-   "label": "Subscription ID"
-  },
-  {
+   "description": "Receipt number, bank reference or online payment ID.",
    "fieldname": "payment_id",
    "fieldtype": "Data",
-   "label": "Payment ID"
+   "label": "Payment Reference"
   },
   {
    "fieldname": "invoice",
@@ -141,17 +134,13 @@
    "reqd": 1
   },
   {
-    "fieldname": "column_break_19",
-    "fieldtype": "Column Break"
-  },
-  {
-    "fieldname": "column_break_16",
-    "fieldtype": "Column Break"
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-03-16 17:37:28.672916",
+ "modified": "2026-10-13 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Non Profit",
  "name": "Membership",
@@ -182,7 +171,6 @@
    "write": 1
   }
  ],
- "restrict_to_domain": "Non Profit",
  "search_fields": "member, member_name",
  "sort_field": "modified",
  "sort_order": "DESC",

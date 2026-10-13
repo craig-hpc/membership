@@ -1,38 +1,64 @@
 import frappe
 
-from non_profit.setup import setup_non_profit
+NON_PROFIT_ROLES = ("Non Profit Manager", "Non Profit Member", "System Manager")
 
 
 def get_company():
 	company = frappe.defaults.get_defaults().company
 	if company:
 		return company
-	else:
-		company = frappe.get_list("Company", limit=1)
-		if company:
-			return company[0].name
+
+	company = frappe.get_list("Company", limit=1)
+	if company:
+		return company[0].name
+
 	return None
 
 
+def check_app_permission():
+	"""Decide whether the Non Profit tile shows on the Apps screen for the current user."""
+	if frappe.session.user == "Administrator":
+		return True
+
+	if frappe.get_cached_value("User", frappe.session.user, "user_type") == "Website User":
+		return False
+
+	if set(NON_PROFIT_ROLES) & set(frappe.get_roles()):
+		return True
+
+	return any(
+		frappe.has_permission(doctype, ptype="read")
+		for doctype in ("Member", "Membership", "Donation", "Donor")
+	)
+
+
 def before_tests():
-	# complete setup if missing
+	"""Create an Australian test company if the test site has none."""
 	from frappe.desk.page.setup_wizard.setup_wizard import setup_complete
+	from non_profit.install import after_install
+	from non_profit.non_profit.australia import get_financial_year
+
+	frappe.clear_cache()
+	fy_start, fy_end = get_financial_year()
 	if not frappe.get_list("Company"):
-		setup_complete({
-			"currency"          :"USD",
-			"full_name"         :"Test User",
-			"company_name"      :"Frappe Care LLC",
-			"timezone"          :"America/New_York",
-			"company_abbr"      :"WP",
-			"industry"          :"Healthcare",
-			"country"           :"United States",
-			"fy_start_date"     :"2021-01-01",
-			"fy_end_date"       :"2021-12-31",
-			"language"          :"english",
-			"company_tagline"   :"Testing",
-			"email"             :"test@erpnext.com",
-			"password"          :"test",
-			"chart_of_accounts" : "Standard",
-			"domains"           : ["Non Profit"],
-		})
-		setup_non_profit()
+		setup_complete(
+			{
+				"currency": "AUD",
+				"full_name": "Test User",
+				"company_name": "Bush Care Australia",
+				"timezone": "Australia/Perth",
+				"company_abbr": "BCA",
+				"industry": "Non Profit",
+				"country": "Australia",
+				"fy_start_date": str(fy_start),
+				"fy_end_date": str(fy_end),
+				"language": "english",
+				"company_tagline": "Testing",
+				"email": "test@example.com",
+				"password": "test",
+				"chart_of_accounts": "Standard",
+			}
+		)
+
+	after_install()
+	frappe.db.commit()  # nosemgrep

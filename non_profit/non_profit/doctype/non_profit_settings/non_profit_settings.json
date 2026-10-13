@@ -5,11 +5,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "enable_razorpay_for_memberships",
-  "razorpay_settings_section",
+  "membership_section",
   "billing_cycle",
-  "billing_frequency",
-  "membership_webhook_secret",
   "column_break_6",
   "allow_invoicing",
   "automate_membership_invoicing",
@@ -17,6 +14,7 @@
   "company",
   "membership_debit_account",
   "membership_payment_account",
+  "membership_taxes_and_charges_template",
   "column_break_9",
   "send_email",
   "send_invoice",
@@ -26,32 +24,27 @@
   "donation_settings_section",
   "donation_company",
   "default_donor_type",
-  "donation_webhook_secret",
+  "send_donation_receipt",
+  "donation_receipt_print_format",
   "column_break_22",
   "automate_donation_payment_entries",
-  "donation_debit_account",
   "donation_payment_account",
-  "section_break_27",
-  "creation_user"
+  "donation_income_account",
+  "donation_cost_center"
  ],
  "fields": [
   {
+   "default": "Yearly",
+   "description": "How long a new membership runs. 'Financial Year' memberships end on the next 30 June.",
    "fieldname": "billing_cycle",
    "fieldtype": "Select",
    "label": "Billing Cycle",
-   "options": "Monthly\nYearly"
+   "options": "Monthly\nQuarterly\nYearly\nFinancial Year (1 July to 30 June)"
   },
   {
-   "depends_on": "eval:doc.enable_razorpay_for_memberships",
-   "fieldname": "razorpay_settings_section",
+   "fieldname": "membership_section",
    "fieldtype": "Section Break",
-   "label": "RazorPay Settings for Memberships"
-  },
-  {
-   "description": "The number of billing cycles for which the customer should be charged. For example, if a customer is buying a 1-year membership that should be billed on a monthly basis, this value should be 12.",
-   "fieldname": "billing_frequency",
-   "fieldtype": "Int",
-   "label": "Billing Frequency"
+   "label": "Memberships"
   },
   {
    "fieldname": "column_break_6",
@@ -63,7 +56,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "description": "This company will be set for the Memberships created via webhook.",
+   "description": "Company used for membership invoices and for memberships created from web forms.",
    "fieldname": "company",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -131,12 +124,6 @@
    "label": "Automate Payment Entry Creation"
   },
   {
-   "default": "0",
-   "fieldname": "enable_razorpay_for_memberships",
-   "fieldtype": "Check",
-   "label": "Enable RazorPay For Memberships"
-  },
-  {
    "depends_on": "eval:doc.automate_membership_payment_entries",
    "description": "Account for accepting membership payments",
    "fieldname": "membership_payment_account",
@@ -146,51 +133,31 @@
    "options": "Account"
   },
   {
-   "fieldname": "membership_webhook_secret",
-   "fieldtype": "Password",
-   "label": "Membership Webhook Secret",
-   "read_only": 1
-  },
-  {
-   "fieldname": "donation_webhook_secret",
-   "fieldtype": "Password",
-   "label": "Donation Webhook Secret",
-   "read_only": 1
-  },
-  {
-   "depends_on": "automate_donation_payment_entries",
-   "description": "Account for accepting donation payments",
+   "depends_on": "eval:doc.automate_donation_payment_entries",
+   "description": "Bank or cash account. A default account on the donation's Mode of Payment takes precedence.",
    "fieldname": "donation_payment_account",
    "fieldtype": "Link",
-   "label": "Donation Payment To",
-   "mandatory_depends_on": "automate_donation_payment_entries",
+   "label": "Deposit To",
+   "mandatory_depends_on": "eval:doc.automate_donation_payment_entries",
    "options": "Account"
   },
   {
    "default": "0",
-   "description": "Auto creates Payment Entry for Donations created from web forms.",
+   "description": "When a donation marked Paid is submitted, debit the deposit account and credit the donation income account. Donations are GST-free.",
    "fieldname": "automate_donation_payment_entries",
    "fieldtype": "Check",
-   "label": "Automate Donation Payment Entries"
+   "label": "Create Journal Entry for Paid Donations"
   },
   {
    "depends_on": "eval:doc.allow_invoicing",
    "fieldname": "membership_debit_account",
    "fieldtype": "Link",
-   "label": "Debit Account",
+   "label": "Receivable Account",
    "mandatory_depends_on": "eval:doc.allow_invoicing",
    "options": "Account"
   },
   {
-   "depends_on": "automate_donation_payment_entries",
-   "fieldname": "donation_debit_account",
-   "fieldtype": "Link",
-   "label": "Debit Account",
-   "mandatory_depends_on": "automate_donation_payment_entries",
-   "options": "Account"
-  },
-  {
-   "description": "This company will be set for the Donations created via webhook.",
+   "description": "Company used for donations created from web forms.",
    "fieldname": "donation_company",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -217,22 +184,46 @@
    "reqd": 1
   },
   {
-   "fieldname": "section_break_27",
-   "fieldtype": "Section Break"
+   "depends_on": "eval:doc.automate_donation_payment_entries",
+   "fieldname": "donation_income_account",
+   "fieldtype": "Link",
+   "label": "Donation Income Account",
+   "mandatory_depends_on": "eval:doc.automate_donation_payment_entries",
+   "options": "Account"
   },
   {
-   "description": "The user that will be used to create Donations, Memberships, Invoices, and Payment Entries. This user should have the relevant permissions.",
-   "fieldname": "creation_user",
+   "depends_on": "eval:doc.automate_donation_payment_entries",
+   "fieldname": "donation_cost_center",
    "fieldtype": "Link",
-   "label": "Creation User",
-   "options": "User",
-   "reqd": 1
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "depends_on": "eval:doc.allow_invoicing",
+   "description": "For example 'AU Sales - GST' if your organisation is registered for GST and charges GST on membership fees. Leave blank if not.",
+   "fieldname": "membership_taxes_and_charges_template",
+   "fieldtype": "Link",
+   "label": "Sales Taxes and Charges Template",
+   "options": "Sales Taxes and Charges Template"
+  },
+  {
+   "default": "0",
+   "fieldname": "send_donation_receipt",
+   "fieldtype": "Check",
+   "label": "Email Receipt When Donation is Submitted"
+  },
+  {
+   "default": "Australian Donation Receipt",
+   "fieldname": "donation_receipt_print_format",
+   "fieldtype": "Link",
+   "label": "Donation Receipt Print Format",
+   "options": "Print Format"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-03-11 10:43:38.124240",
+ "modified": "2026-10-13 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Non Profit",
  "name": "Non Profit Settings",
@@ -257,16 +248,9 @@
    "role": "Non Profit Manager",
    "share": 1,
    "write": 1
-  },
-  {
-   "email": 1,
-   "print": 1,
-   "read": 1,
-   "role": "Non Profit Member",
-   "share": 1
   }
  ],
- "quick_entry": 1,
+ "quick_entry": 0,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

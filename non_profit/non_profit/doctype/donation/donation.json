@@ -2,6 +2,7 @@
  "actions": [],
  "autoname": "naming_series:",
  "creation": "2021-02-17 10:28:52.645731",
+ "default_print_format": "Australian Donation Receipt",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -13,12 +14,21 @@
   "column_break_4",
   "company",
   "date",
+  "currency",
+  "tax_deductibility_section",
+  "gift_type",
+  "benefit_value",
+  "column_break_tax",
+  "is_tax_deductible",
+  "deductible_amount",
+  "financial_year",
   "payment_details_section",
   "paid",
   "amount",
   "mode_of_payment",
   "column_break_12",
   "payment_id",
+  "journal_entry",
   "amended_from"
  ],
  "fields": [
@@ -65,7 +75,9 @@
   {
    "fieldname": "amount",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Amount",
+   "options": "currency",
    "reqd": 1
   },
   {
@@ -75,6 +87,7 @@
    "options": "Mode of Payment"
   },
   {
+   "default": "NPO-DTN-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
@@ -105,19 +118,88 @@
    "read_only": 1
   },
   {
+   "description": "Receipt number, bank reference or online payment ID.",
    "fieldname": "payment_id",
    "fieldtype": "Data",
-   "label": "Payment ID"
+   "label": "Payment Reference"
   },
   {
    "fieldname": "column_break_12",
    "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "company.default_currency",
+   "fetch_if_empty": 1,
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Link",
+   "label": "Journal Entry",
+   "no_copy": 1,
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax_deductibility_section",
+   "fieldtype": "Section Break",
+   "label": "Tax Deductibility (Australia)"
+  },
+  {
+   "default": "Gift",
+   "description": "A Gift gives the donor nothing in return. Use a contribution type for dinner tickets, raffles at events or auction purchases.",
+   "fieldname": "gift_type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Gift\nFundraising Event Contribution\nAuction Contribution",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.gift_type != 'Gift'",
+   "description": "GST-inclusive market value of what the donor received, for example the meal or the auction item.",
+   "fieldname": "benefit_value",
+   "fieldtype": "Currency",
+   "label": "Value of Benefit Received",
+   "options": "currency"
+  },
+  {
+   "fieldname": "column_break_tax",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "is_tax_deductible",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "Tax Deductible",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "deductible_amount",
+   "fieldtype": "Currency",
+   "label": "Deductible Amount",
+   "no_copy": 1,
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "description": "Australian financial year, 1 July to 30 June.",
+   "fieldname": "financial_year",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Financial Year",
+   "no_copy": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-03-16 17:18:45.611741",
+ "modified": "2026-10-13 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Non Profit",
  "name": "Donation",

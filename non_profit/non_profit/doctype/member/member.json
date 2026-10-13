@@ -9,7 +9,9 @@
  "field_order": [
   "naming_series",
   "member_name",
+  "membership_status",
   "membership_expiry_date",
+  "member_since",
   "column_break_5",
   "membership_type",
   "email_id",
@@ -22,17 +24,11 @@
   "address_contacts",
   "address_html",
   "column_break_9",
-  "contact_html",
-  "razorpay_details_section",
-  "subscription_id",
-  "customer_id",
-  "subscription_status",
-  "column_break_21",
-  "subscription_start",
-  "subscription_end"
+  "contact_html"
  ],
  "fields": [
   {
+   "default": "NPO-MEM-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
@@ -47,9 +43,13 @@
    "reqd": 1
   },
   {
+   "description": "Updated automatically from the member's latest paid membership.",
    "fieldname": "membership_expiry_date",
    "fieldtype": "Date",
-   "label": "Membership Expiry Date"
+   "in_list_view": 1,
+   "label": "Membership Expiry Date",
+   "no_copy": 1,
+   "read_only": 1
   },
   {
    "fieldname": "column_break_5",
@@ -59,6 +59,7 @@
    "fieldname": "membership_type",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Membership Type",
    "options": "Membership Type",
    "reqd": 1
@@ -130,47 +131,26 @@
    "options": "Email"
   },
   {
-   "fieldname": "subscription_id",
-   "fieldtype": "Data",
-   "label": "Subscription ID",
-   "read_only": 1
-  },
-  {
-   "fieldname": "customer_id",
-   "fieldtype": "Data",
-   "label": "Customer ID",
-   "read_only": 1
-  },
-  {
-   "fieldname": "razorpay_details_section",
-   "fieldtype": "Section Break",
-   "hidden": 1,
-   "label": "Razorpay Details"
-  },
-  {
-   "fieldname": "column_break_21",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "subscription_start",
-   "fieldtype": "Date",
-   "label": "Subscription Start "
-  },
-  {
-   "fieldname": "subscription_end",
-   "fieldtype": "Date",
-   "label": "Subscription End"
-  },
-  {
-   "fieldname": "subscription_status",
+   "fieldname": "membership_status",
    "fieldtype": "Select",
-   "label": "Subscription Status",
-   "options": "\nActive\nHalted"
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Membership Status",
+   "no_copy": 1,
+   "options": "\nCurrent\nPending\nExpired\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "member_since",
+   "fieldtype": "Date",
+   "label": "Member Since",
+   "no_copy": 1,
+   "read_only": 1
   }
  ],
  "image_field": "image",
  "links": [],
- "modified": "2021-07-11 14:27:26.368039",
+ "modified": "2026-10-13 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Non Profit",
  "name": "Member",
@@ -202,7 +182,6 @@
   }
  ],
  "quick_entry": 1,
- "restrict_to_domain": "Non Profit",
  "sort_field": "modified",
  "sort_order": "DESC",
  "title_field": "member_name",

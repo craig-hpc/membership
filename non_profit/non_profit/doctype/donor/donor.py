@@ -4,6 +4,8 @@
 
 from frappe.contacts.address_and_contact import load_address_and_contact
 from frappe.model.document import Document
+from frappe.utils import validate_email_address
+from non_profit.non_profit.australia import validate_abn
 
 
 class Donor(Document):
@@ -12,6 +14,9 @@ class Donor(Document):
 		load_address_and_contact(self)
 
 	def validate(self):
-		from frappe.utils import validate_email_address
 		if self.email:
-			validate_email_address(self.email.strip(), True)
+			self.email = self.email.strip()
+			validate_email_address(self.email, True)
+
+		if self.abn:
+			self.abn = validate_abn(self.abn)
