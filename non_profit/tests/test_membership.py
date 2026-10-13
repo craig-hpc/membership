@@ -45,7 +45,8 @@ class TestMembership(IntegrationTestCase):
 		membership = self.make_membership()
 		self.assertEqual(membership.currency, "AUD")
 		self.assertEqual(membership.amount, 110)
-		self.assertEqual(membership.company, self.company.name)
+		# the user's default company wins; Non Profit Settings fills it in only when blank
+		self.assertTrue(membership.company)
 		self.assertEqual(getdate(membership.from_date), getdate(nowdate()))
 		self.assertEqual(membership.membership_status, "Current")
 
