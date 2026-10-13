@@ -93,6 +93,13 @@ jobs:
           ERPNEXT_BRANCH: ${{ matrix.erpnext_branch }}
 
       - name: Run Tests
-        run: cd ~/frappe-bench/ && bench --site test_site run-tests --app non_profit
+        run: |
+          cd ~/frappe-bench/
+          set -o pipefail
+          bench --site test_site run-tests --app non_profit 2>&1 | tee ~/test-output.txt
         env:
           TYPE: server
+
+      - name: Report test failures as annotations
+        if: failure()
+        run: python ${GITHUB_WORKSPACE}/.github/helper/annotate_failures.py ~/test-output.txt ~/frappe-bench/bench_start.log
