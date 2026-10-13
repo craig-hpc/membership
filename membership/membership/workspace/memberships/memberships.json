@@ -1,0 +1,238 @@
+{
+ "app": "membership",
+ "charts": [],
+ "content": "[{\"id\": \"785c8cc1ab\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Shortcuts</b></span>\", \"col\": 12}}, {\"id\": \"487b00c7f4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Member\", \"col\": 4}}, {\"id\": \"3a6abd685a\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Membership\", \"col\": 4}}, {\"id\": \"01725ed09d\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Donation\", \"col\": 4}}, {\"id\": \"da68d605d4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Donor\", \"col\": 4}}, {\"id\": \"b6a85f68b6\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Expiring Memberships\", \"col\": 4}}, {\"id\": \"3c424458b6\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Tax Deductible Donations\", \"col\": 4}}, {\"id\": \"38a28f17d8\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"4b0297c5e5\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Records &amp; Setup</b></span>\", \"col\": 12}}, {\"id\": \"d04d52bc61\", \"type\": \"card\", \"data\": {\"card_name\": \"Membership\", \"col\": 4}}, {\"id\": \"aa55c6b62b\", \"type\": \"card\", \"data\": {\"card_name\": \"Donations\", \"col\": 4}}, {\"id\": \"f32456de76\", \"type\": \"card\", \"data\": {\"card_name\": \"Community\", \"col\": 4}}, {\"id\": \"9abe506564\", \"type\": \"card\", \"data\": {\"card_name\": \"Settings\", \"col\": 4}}]",
+ "creation": "2020-03-02 17:23:47.811421",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "hand-heart",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Memberships",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Membership",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Member",
+   "link_count": 0,
+   "link_to": "Member",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Membership",
+   "link_count": 0,
+   "link_to": "Membership",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Membership Type",
+   "link_count": 0,
+   "link_to": "Membership Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Expiring Memberships",
+   "link_count": 0,
+   "link_to": "Expiring Memberships",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Donations",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Donor",
+   "link_count": 0,
+   "link_to": "Donor",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Donation",
+   "link_count": 0,
+   "link_to": "Donation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Donor Type",
+   "link_count": 0,
+   "link_to": "Donor Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Tax Deductible Donations",
+   "link_count": 0,
+   "link_to": "Tax Deductible Donations",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Community",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Volunteer",
+   "link_count": 0,
+   "link_to": "Volunteer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Volunteer Type",
+   "link_count": 0,
+   "link_to": "Volunteer Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Chapter",
+   "link_count": 0,
+   "link_to": "Chapter",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Grant Application",
+   "link_count": 0,
+   "link_to": "Grant Application",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Settings",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Membership Settings",
+   "link_count": 0,
+   "link_to": "Membership Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-10-13 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Membership",
+ "name": "Memberships",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 30.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Member",
+   "link_to": "Member",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Membership",
+   "link_to": "Membership",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Donation",
+   "link_to": "Donation",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Donor",
+   "link_to": "Donor",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Expiring Memberships",
+   "link_to": "Expiring Memberships",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Tax Deductible Donations",
+   "link_to": "Tax Deductible Donations",
+   "type": "Report"
+  }
+ ],
+ "standard": 1,
+ "title": "Memberships",
+ "type": "Workspace"
+}

@@ -1,5 +1,5 @@
 [project]
-name = "non_profit"
+name = "membership"
 authors = [
     { name = "Frappe Technologies Pvt Ltd", email = "developers@frappe.io" },
 ]
@@ -46,4 +46,4 @@ docstring-code-format = true
 [tool.ruff.lint.isort.sections]
 "frappe" = ["frappe"]
 "erpnext" = ["erpnext"]
-"non_profit" = ["non_profit"]
+"membership" = ["membership"]

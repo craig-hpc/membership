@@ -3,5 +3,6 @@
 *.egg-info
 *.swp
 tags
-non_profit/docs/current
+membership/docs/current
 __pycache__
+.ruff_cache

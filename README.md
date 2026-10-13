@@ -1,4 +1,4 @@
-## Non Profit (Frappe/ERPNext v16, Australian edition)
+## Membership (Frappe/ERPNext v16, Australian edition)
 
 Memberships, donations, volunteers, chapters and grant applications for not-for-profit organisations, built on ERPNext.
 
@@ -17,7 +17,7 @@ This branch (`version-16`) works with **Frappe and ERPNext 16.50 or later** on t
 - **Tax Deductible Donations** report: totals per donor for a financial year, for annual tax statements.
 - **Expiring Memberships** report.
 - **Volunteers, chapters and grant applications**, as in the original app.
-- **v16 navigation**: an Apps screen tile, a Non Profit sidebar and workspace, and a desktop icon for sites still using the icon grid.
+- **v16 navigation**: an Apps screen tile, a Memberships sidebar and workspace, and a desktop icon for sites still using the icon grid.
 
 Removed from the original app: the India-specific parts (80G certificates, PAN numbers, Razorpay subscriptions and webhooks), Frappe's own consultant certification doctypes, and the Payment Entry override, which conflicted with ERPNext v16.
 
@@ -25,22 +25,24 @@ Removed from the original app: the India-specific parts (80G certificates, PAN n
 
 ```bash
 cd ~/frappe-bench
-bench get-app https://github.com/craig-hpc/non_profit --branch version-16
-bench --site your-site install-app non_profit
-bench build --app non_profit
+bench get-app https://github.com/craig-hpc/membership --branch version-16
+bench --site your-site install-app membership
+bench build --app membership
 bench --site your-site migrate
 ```
 
 ### Setup
 
 1. **Company** → *Not-for-profit Registration (Australia)*: enter your **ABN**, and tick **Endorsed as a Deductible Gift Recipient** if you are a DGR. If gifts go to a separate public fund, enter its name.
-2. **Non Profit Settings**:
+2. **Membership Settings**:
    - *Memberships*: billing cycle, invoicing company, receivable account, payment account, and a GST template if you charge GST on fees.
    - *Donations*: tick *Create Journal Entry for Paid Donations*, then set the *Deposit To* account and the *Donation Income Account*. Optionally turn on emailed receipts.
 3. **Membership Type**: create one per membership class, with its fee and a non-stock service **Linked Item** for invoicing.
-4. Give staff the **Non Profit Manager** role. The Non Profit tile appears on the Apps screen for users with a Non Profit role or read access to members, memberships, donors or donations.
+4. Give staff the **Membership Manager** role. The Membership tile appears on the Apps screen for users with a Membership role or read access to members, memberships, donors or donations.
 
 ### Notes
+
+- This app started as a fork of Frappe's `non_profit` app and was renamed to `membership`.
 
 - Receipts and deductibility follow ATO guidance as of 2026. Check current ATO rules for your organisation, especially for fundraising events and auctions.
 - The deductible amount is only worked out when the donation's company is marked as a DGR.

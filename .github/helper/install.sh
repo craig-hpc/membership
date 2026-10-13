@@ -34,10 +34,10 @@ sed -i 's/socketio:/# socketio:/g' Procfile
 sed -i 's/redis_socketio:/# redis_socketio:/g' Procfile
 
 bench get-app https://github.com/frappe/erpnext --branch "${erpnextbranch}"
-bench get-app non_profit "${GITHUB_WORKSPACE}"
+bench get-app membership "${GITHUB_WORKSPACE}"
 bench setup requirements --dev
 
 bench start &>> ~/frappe-bench/bench_start.log &
 bench --site test_site reinstall --yes
 
-bench --verbose --site test_site install-app non_profit
+bench --verbose --site test_site install-app membership

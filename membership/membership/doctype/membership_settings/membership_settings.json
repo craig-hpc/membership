@@ -1,0 +1,257 @@
+{
+ "actions": [],
+ "creation": "2020-03-29 12:57:03.005120",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "membership_section",
+  "billing_cycle",
+  "column_break_6",
+  "allow_invoicing",
+  "automate_membership_invoicing",
+  "automate_membership_payment_entries",
+  "company",
+  "membership_debit_account",
+  "membership_payment_account",
+  "membership_taxes_and_charges_template",
+  "column_break_9",
+  "send_email",
+  "send_invoice",
+  "membership_print_format",
+  "inv_print_format",
+  "email_template",
+  "donation_settings_section",
+  "donation_company",
+  "default_donor_type",
+  "send_donation_receipt",
+  "donation_receipt_print_format",
+  "column_break_22",
+  "automate_donation_payment_entries",
+  "donation_payment_account",
+  "donation_income_account",
+  "donation_cost_center"
+ ],
+ "fields": [
+  {
+   "default": "Yearly",
+   "description": "How long a new membership runs. 'Financial Year' memberships end on the next 30 June.",
+   "fieldname": "billing_cycle",
+   "fieldtype": "Select",
+   "label": "Billing Cycle",
+   "options": "Monthly\nQuarterly\nYearly\nFinancial Year (1 July to 30 June)"
+  },
+  {
+   "fieldname": "membership_section",
+   "fieldtype": "Section Break",
+   "label": "Memberships"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Section Break",
+   "label": "Membership Invoicing"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Company used for membership invoices and for memberships created from web forms.",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.allow_invoicing && doc.send_email",
+   "fieldname": "send_invoice",
+   "fieldtype": "Check",
+   "label": "Send Invoice with Email"
+  },
+  {
+   "default": "0",
+   "fieldname": "send_email",
+   "fieldtype": "Check",
+   "label": "Send Membership Acknowledgement"
+  },
+  {
+   "depends_on": "eval: doc.send_invoice",
+   "fieldname": "inv_print_format",
+   "fieldtype": "Link",
+   "label": "Invoice Print Format",
+   "mandatory_depends_on": "eval: doc.send_invoice",
+   "options": "Print Format"
+  },
+  {
+   "depends_on": "eval:doc.send_email",
+   "fieldname": "membership_print_format",
+   "fieldtype": "Link",
+   "label": "Membership Print Format",
+   "options": "Print Format"
+  },
+  {
+   "depends_on": "eval:doc.send_email",
+   "fieldname": "email_template",
+   "fieldtype": "Link",
+   "label": "Email Template",
+   "mandatory_depends_on": "eval:doc.send_email",
+   "options": "Email Template"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_invoicing",
+   "fieldtype": "Check",
+   "label": "Allow Invoicing for Memberships",
+   "mandatory_depends_on": "eval:doc.send_invoice || doc.make_payment_entry"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.allow_invoicing",
+   "description": "Automatically create an invoice when payment is authorized from a web form entry",
+   "fieldname": "automate_membership_invoicing",
+   "fieldtype": "Check",
+   "label": "Automate Invoicing for Web Forms"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.allow_invoicing",
+   "description": "Auto creates Payment Entry for Sales Invoices created for Membership from web forms.",
+   "fieldname": "automate_membership_payment_entries",
+   "fieldtype": "Check",
+   "label": "Automate Payment Entry Creation"
+  },
+  {
+   "depends_on": "eval:doc.automate_membership_payment_entries",
+   "description": "Account for accepting membership payments",
+   "fieldname": "membership_payment_account",
+   "fieldtype": "Link",
+   "label": "Membership Payment To",
+   "mandatory_depends_on": "eval:doc.automate_membership_payment_entries",
+   "options": "Account"
+  },
+  {
+   "depends_on": "eval:doc.automate_donation_payment_entries",
+   "description": "Bank or cash account. A default account on the donation's Mode of Payment takes precedence.",
+   "fieldname": "donation_payment_account",
+   "fieldtype": "Link",
+   "label": "Deposit To",
+   "mandatory_depends_on": "eval:doc.automate_donation_payment_entries",
+   "options": "Account"
+  },
+  {
+   "default": "0",
+   "description": "When a donation marked Paid is submitted, debit the deposit account and credit the donation income account. Donations are GST-free.",
+   "fieldname": "automate_donation_payment_entries",
+   "fieldtype": "Check",
+   "label": "Create Journal Entry for Paid Donations"
+  },
+  {
+   "depends_on": "eval:doc.allow_invoicing",
+   "fieldname": "membership_debit_account",
+   "fieldtype": "Link",
+   "label": "Receivable Account",
+   "mandatory_depends_on": "eval:doc.allow_invoicing",
+   "options": "Account"
+  },
+  {
+   "description": "Company used for donations created from web forms.",
+   "fieldname": "donation_company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "donation_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Donation Settings"
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "This Donor Type will be set for the Donor created via Donation web form entry.",
+   "fieldname": "default_donor_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Default Donor Type",
+   "options": "Donor Type",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.automate_donation_payment_entries",
+   "fieldname": "donation_income_account",
+   "fieldtype": "Link",
+   "label": "Donation Income Account",
+   "mandatory_depends_on": "eval:doc.automate_donation_payment_entries",
+   "options": "Account"
+  },
+  {
+   "depends_on": "eval:doc.automate_donation_payment_entries",
+   "fieldname": "donation_cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "depends_on": "eval:doc.allow_invoicing",
+   "description": "For example 'AU Sales - GST' if your organisation is registered for GST and charges GST on membership fees. Leave blank if not.",
+   "fieldname": "membership_taxes_and_charges_template",
+   "fieldtype": "Link",
+   "label": "Sales Taxes and Charges Template",
+   "options": "Sales Taxes and Charges Template"
+  },
+  {
+   "default": "0",
+   "fieldname": "send_donation_receipt",
+   "fieldtype": "Check",
+   "label": "Email Receipt When Donation is Submitted"
+  },
+  {
+   "default": "Australian Donation Receipt",
+   "fieldname": "donation_receipt_print_format",
+   "fieldtype": "Link",
+   "label": "Donation Receipt Print Format",
+   "options": "Print Format"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-10-13 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Membership",
+ "name": "Membership Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Membership Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 0,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

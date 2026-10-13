@@ -25,13 +25,13 @@ jobs:
 
       - name: Check Python syntax and JSON files
         run: |
-          python -m compileall -q non_profit
-          find non_profit -name "*.json" -print0 | xargs -0 -n1 python -m json.tool > /dev/null
+          python -m compileall -q membership
+          find membership -name "*.json" -print0 | xargs -0 -n1 python -m json.tool > /dev/null
 
       - name: Ruff
         run: |
           pip install ruff
-          ruff check non_profit
+          ruff check membership
 
   tests:
     name: Server tests (${{ matrix.label }})
@@ -96,7 +96,7 @@ jobs:
         run: |
           cd ~/frappe-bench/
           set -o pipefail
-          bench --site test_site run-tests --app non_profit 2>&1 | tee ~/test-output.txt
+          bench --site test_site run-tests --app membership 2>&1 | tee ~/test-output.txt
         env:
           TYPE: server
 
