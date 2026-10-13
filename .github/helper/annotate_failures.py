@@ -1,7 +1,10 @@
 """Turn the failing part of a test log into GitHub annotations, so failures can be read
 without downloading the full job log."""
 
+import re
 import sys
+
+ANSI = re.compile(r"\x1b\[[0-9;]*m")
 
 MAX_ANNOTATIONS = 10
 MAX_CHARS = 3500
@@ -16,14 +19,26 @@ def main(paths):
 	for path in paths:
 		try:
 			with open(path, errors="replace") as f:
-				lines += f.read().splitlines()
+				lines += ANSI.sub("", f.read()).splitlines()
 		except FileNotFoundError:
 			continue
 
-	# keep from the first failure/traceback marker onwards, otherwise the tail
-	markers = ("Traceback", "ERROR", "FAIL", "Error", "error:")
-	start = next((i for i, line in enumerate(lines) if line.lstrip().startswith(markers)), None)
-	interesting = lines[max(0, start - 5) :] if start is not None else lines[-200:]
+	# unittest failure blocks: from "FAIL: ..." / "ERROR: ..." up to the next "=====" or "-----" rule
+	interesting, inside = [], False
+	for line in lines:
+		bare = line.strip()
+		if re.match(r"^(FAIL|ERROR)[: ] ?\S", bare):
+			inside = True
+			interesting.append("=" * 40)
+		elif inside and bare.startswith("=" * 20):
+			inside = False
+		if inside:
+			interesting.append(line)
+		elif bare.startswith(("Ran ", "FAILED", "OK")) or "✖" in bare:
+			interesting.append(line)
+
+	if not any(re.match(r"^(FAIL|ERROR)[: ] ?\S", line.strip()) for line in interesting):
+		interesting = lines[-200:]
 
 	chunks, current = [], ""
 	for line in interesting:
