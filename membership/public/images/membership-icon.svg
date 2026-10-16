@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <!-- Rounded tile in sunburnt orange -->
+  <rect x="0" y="0" width="120" height="120" rx="26" fill="#D9622B"/>
+
+  <!-- Membership card -->
+  <rect x="24" y="36" width="72" height="48" rx="7" fill="none" stroke="#FFFFFF" stroke-width="5"/>
+
+  <!-- Member avatar: head and shoulders -->
+  <circle cx="45" cy="56" r="7" fill="#FFFFFF"/>
+  <path d="M33 74 C33 66 39 62 45 62 C51 62 57 66 57 74 Z" fill="#FFFFFF"/>
+
+  <!-- Details lines -->
+  <rect x="66" y="50" width="20" height="5" rx="2.5" fill="#FFFFFF"/>
+  <rect x="66" y="62" width="14" height="5" rx="2.5" fill="#FFFFFF"/>
+</svg>
