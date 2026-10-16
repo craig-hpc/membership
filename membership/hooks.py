@@ -2,9 +2,9 @@ from frappe import _
 
 app_name = "membership"
 app_title = "Membership"
-app_publisher = "Frappe Technologies Pvt Ltd"
+app_publisher = "HealthyPC - original by Frappe Technologies"
 app_description = "Memberships, donations, volunteers and chapters for not-for-profit organisations"
-app_email = "developers@frappe.io"
+app_email = "support@healthypc.com.au"
 app_license = "MIT"
 required_apps = ["frappe/erpnext"]
 app_logo_url = "/assets/membership/images/membership-logo.svg"
